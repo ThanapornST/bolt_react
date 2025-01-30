@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from "react";
 
-const NovelCard = ({ category, title, description }: {
-  category: string;
-  title: string;
-  description: string;
-}) => {
+const NovelCard = ({ category, title, description }: { category: string; title: string; description: string }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxLength = 120; // กำหนดจำนวนตัวอักษรที่ต้องการแสดงก่อนตัดข้อความ
+
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden flex">
+<div className="bg-white shadow-lg rounded-lg overflow-hidden flex">
+      {/* รูปภาพและปุ่ม Play Audio */}
       <div className="w-1/3 relative">
         <img
           src="https://i.pinimg.com/736x/c0/4d/d9/c04dd96f6090328857b71441fb3cdc96.jpg"
@@ -21,25 +21,43 @@ const NovelCard = ({ category, title, description }: {
           />
         </button>
       </div>
+
+      {/* ข้อมูลนิยาย */}
       <div className="w-2/3 p-4 flex flex-col justify-between">
         <div>
           <span className="text-sm text-gray-500">Category: {category}</span>
           <h4 className="text-lg font-semibold text-gray-900 mt-2">{title}</h4>
-          <p className="text-sm text-gray-600">{description}</p>
+
+          {/* แสดงเฉพาะข้อความที่ตัด หรือ ข้อความเต็มเมื่อกด "Read More" */}
+          <p className="text-sm text-gray-600">
+            {isExpanded ? description : `${description.substring(0, maxLength)}...`}
+          </p>
+
+          {/* ปุ่ม "Read More" */}
+          {description.length > maxLength && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-blue-500 hover:underline text-sm mt-1"
+            >
+              {isExpanded ? "Read Less" : "Read More"}
+            </button>
+          )}
         </div>
-        <button className="inline-block px-8 py-3 bg-gradient-to-r from-sky-500 to-blue-700 text-white rounded-full hover:from-red-600 hover:to-orange-600 transition-all text-lg font-semibold shadow-lg">
+
+        {/* ปุ่ม Get Started */}
+        <button className="inline-block px-6 py-2 bg-gradient-to-r from-sky-500 to-blue-700 text-white rounded-full hover:from-red-600 hover:to-orange-600 transition-all text-lg font-semibold shadow-lg">
           Get Started Free
         </button>
       </div>
     </div>
   );
 };
-
+// ตัวอย่างการใช้งาน
 const NovelExamples = () => {
   return (
     <div className="bg-white lg:px-8">
       <h3 className="text-2xl font-bold text-gray-900 text-center mb-6">
-        Try listening to and reading an AI-generated novel example from us.
+      Try listening to and reading an AI-generated novel example from us
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
         <NovelCard
@@ -49,8 +67,8 @@ const NovelExamples = () => {
         />
         <NovelCard
           category="Past, Present, Future"
-          title="The Glittering Swan, The Phantom Tiger."
-          description="The Glittering Swan, The Phantom Tiger."
+          title="The Glittering Swan, The Phantom Tiger"
+          description="The Glittering Swan, The Phantom TigerThe Glittering Swan, The Phantom TigerThe Glittering Swan, The Phantom TigerThe Glittering Swan, The Phantom TigerThe Glittering Swan, The Phantom Tiger"
         />
       </div>
     </div>

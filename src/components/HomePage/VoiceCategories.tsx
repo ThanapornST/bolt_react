@@ -10,7 +10,7 @@ const categories = [
 const VoiceCategories = () => {
   return (
     <div className="relative z-10 mt-[-80px] pb-16 bg-gradient-to-b from-black/40 to-white">
-      <h2 className="text-3xl font-semibold text-white text-center">
+      <h2 className="text-3xl mt-10 font-semibold text-white text-center">
         Top 10 uses of narrative-style voices
       </h2>
       <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">

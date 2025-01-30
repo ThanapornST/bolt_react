@@ -17,8 +17,8 @@ const HomePage = () => {
       </div>
 
       <VoiceCategories />
-      <Instructions />
       <NovelExamples />
+      <Instructions />
       <SampleNovelExamples />
       <Footer />
     </div>
