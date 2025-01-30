@@ -15,7 +15,7 @@ const Hero = () => {
         </p>
         <div className="mt-8">
           <Link
-            to="/register"
+            to="/create"
             className="inline-block px-8 py-3 bg-gradient-to-r from-sky-500 to-blue-700 text-white rounded-full hover:from-red-600 hover:to-orange-600 transition-all text-lg font-semibold shadow-lg"
           >
             Start creating a novel

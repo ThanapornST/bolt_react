@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import LoginCard from './components/Login/LoginCard';
 import RegisterCard from './components/Login/RegisterCard';
 import HomePage from './components/HomePage';
+import CreatePage from './components/CreatePage';
 import { X } from 'lucide-react';
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<AuthLayout><LoginCard /></AuthLayout>} />
         <Route path="/register" element={<AuthLayout><RegisterCard /></AuthLayout>} />
+        <Route path="/create" element={<CreatePage />} />
       </Routes>
     </Router>
   );
