@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from './CreatePage/Sidebar';
 import Header from './CreatePage/Header';
 import ProjectCard from './CreatePage/ProjectCard';
@@ -18,6 +19,7 @@ interface CreateFormData {
 }
 
 const CreatePage = () => {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedType, setSelectedType] = useState<'episodic' | 'oneshot' | null>(null);
@@ -72,8 +74,8 @@ const CreatePage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log({ type: selectedType, formData, duration });
+    // Navigate to CreateCharacter component
+    navigate('/character');
     setShowCreateModal(false);
   };
 
