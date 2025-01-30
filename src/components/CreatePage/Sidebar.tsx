@@ -7,7 +7,11 @@ interface MenuItem {
   items?: string[];
 }
 
-const Sidebar = () => {
+interface SidebarProps {
+  onNewProject: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onNewProject }) => {
   const navigate = useNavigate();
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({
     Novel: true,
@@ -44,7 +48,10 @@ const Sidebar = () => {
         <h2 className="text-base sm:text-lg text-gray-400">Whisper</h2>
       </div>
 
-      <button className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 px-3 sm:px-4 flex items-center justify-center transition-colors mb-4">
+      <button 
+        onClick={onNewProject}
+        className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 px-3 sm:px-4 flex items-center justify-center transition-colors mb-4"
+      >
         <PlusCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
         New Project
       </button>
