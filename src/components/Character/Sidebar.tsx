@@ -1,11 +1,12 @@
 import React from 'react';
-import { BookOpen, Home, Mic, Plus, Settings, Sparkles } from 'lucide-react';
+import { Home, BookOpen, Mic, Settings, Plus, Sparkles } from 'lucide-react';
 
 interface SidebarProps {
   onShowProjectInfo: () => void;
+  onShowCharacterCreation: () => void;
 }
 
-export function Sidebar({ onShowProjectInfo }: SidebarProps) {
+export function Sidebar({ onShowProjectInfo, onShowCharacterCreation }: SidebarProps) {
   return (
     <div className="w-64 bg-black border-r border-gray-800">
       <div className="p-4">
@@ -26,7 +27,10 @@ export function Sidebar({ onShowProjectInfo }: SidebarProps) {
             <BookOpen className="w-5 h-5 mr-3" />
             <span>ข้อมูลProjects</span>
           </button>
-          <button className="flex items-center px-4 py-2 text-emerald-500 hover:bg-gray-800 rounded-lg w-full">
+          <button 
+            onClick={onShowCharacterCreation}
+            className="flex items-center px-4 py-2 text-emerald-500 hover:bg-gray-800 rounded-lg w-full"
+          >
             <Mic className="w-5 h-5 mr-3" />
             <span>สร้างเสียงตัวละคร</span>
           </button>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Image as ImageIcon } from 'lucide-react';
+import { ImageIcon, Plus } from 'lucide-react';
 
 interface ProjectInfoProps {
   onClose: () => void;
