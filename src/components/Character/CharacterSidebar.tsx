@@ -1,93 +1,70 @@
 import React from 'react';
-import { BookOpen, LogOut, PlusCircle, ScrollText, ChevronDown, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { BookOpen, Home, Mic, Plus, Settings, Sparkles } from 'lucide-react';
 
 interface CharacterSidebarProps {
   onShowCharacterInfo: () => void;
 }
 
 export function CharacterSidebar({ onShowCharacterInfo }: CharacterSidebarProps) {
-  const navigate = useNavigate();
-  const [expandedItems, setExpandedItems] = React.useState<{ [key: string]: boolean }>({
-    Novel: true,
-    Create: true
-  });
-
-  const menuItems = [
-    {
-      label: "Novel",
-      items: ["Novel 1", "Novel 2"]
-    },
-    {
-      label: "Create",
-      items: ["Journal", "Diary", "Finish", "New Form", "AI"]
-    }
-  ];
-
-  const handleLogout = () => {
-    navigate('/');
-  };
-
-  const toggleExpand = (label: string) => {
-    setExpandedItems(prev => ({
-      ...prev,
-      [label]: !prev[label]
-    }));
-  };
-
   return (
-    <div className="w-64 bg-black text-white h-full p-4 sm:p-6 flex flex-col">
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-xl sm:text-2xl font-bold">Write</h1>
-        <div className="h-0.5 w-16 bg-blue-500 mt-1"></div>
-        <h2 className="text-base sm:text-lg text-gray-400">Whisper</h2>
+    <div className="w-64 bg-black border-r border-gray-800">
+      <div className="p-4">
+        <div className="flex items-center space-x-2 mb-8">
+          <BookOpen className="w-6 h-6 text-emerald-500" />
+          <span className="text-white text-xl font-semibold">WriteWhisper</span>
+        </div>
+
+        <nav className="space-y-2">
+          <a href="#" className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg">
+            <Home className="w-5 h-5 mr-3" />
+            <span>หน้าหลัก</span>
+          </a>
+          <button 
+            onClick={onShowCharacterInfo}
+            className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg w-full"
+          >
+            <BookOpen className="w-5 h-5 mr-3" />
+            <span>ข้อมูลตัวละคร</span>
+          </button>
+          <button className="flex items-center px-4 py-2 text-emerald-500 hover:bg-gray-800 rounded-lg w-full">
+            <Mic className="w-5 h-5 mr-3" />
+            <span>สร้างเสียงตัวละคร</span>
+          </button>
+          <button className="flex items-center px-4 py-2 text-emerald-500 hover:bg-gray-800 rounded-lg w-full">
+            <Sparkles className="w-5 h-5 mr-3" />
+            <span>AI สร้างบทสนทนา</span>
+          </button>
+
+          <div className="py-4">
+            <div className="px-4 text-sm font-medium text-gray-400 mb-2">ตัวละครทั้งหมด</div>
+            <button className="flex items-center px-4 py-2 text-white bg-gray-800 rounded-lg w-full mb-2">
+              <span>ตัวละครที่ 1: MiCael</span>
+            </button>
+            <button className="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 rounded-lg w-full mb-2">
+              <span>ตัวละครที่ 2: ยังไม่มีชื่อ</span>
+            </button>
+            <button className="flex items-center px-4 py-2 text-emerald-500 hover:bg-gray-800 rounded-lg w-full">
+              <Plus className="w-4 h-4 mr-2" />
+              <span>เพิ่มตัวละครใหม่</span>
+            </button>
+          </div>
+        </nav>
       </div>
 
-      <nav className="flex-1 overflow-y-auto">
-        <ul className="space-y-1">
-          {menuItems.map((item) => (
-            <li key={item.label} className="mb-2">
-              <button
-                onClick={() => toggleExpand(item.label)}
-                className="w-full flex items-center justify-between text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg p-2 sm:p-3 transition-colors"
-              >
-                <span className="flex items-center">
-                  {item.label === "Novel" ? (
-                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                  ) : (
-                    <ScrollText className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                  )}
-                  <span className="text-sm sm:text-base">{item.label}</span>
-                </span>
-                {expandedItems[item.label] ? (
-                  <ChevronDown className="w-4 h-4" />
-                ) : (
-                  <ChevronRight className="w-4 h-4" />
-                )}
-              </button>
-              {expandedItems[item.label] && item.items && (
-                <ul className="ml-6 sm:ml-8 mt-1 space-y-1">
-                  {item.items.map((subItem) => (
-                    <li key={subItem}>
-                      <button className="w-full text-left text-gray-400 hover:text-white p-1.5 sm:p-2 rounded-lg hover:bg-gray-800 transition-colors text-xs sm:text-sm">
-                        {subItem}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <button 
-        onClick={handleLogout}
-        className="w-full flex items-center text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg p-2 sm:p-3 transition-colors mt-auto"
-      >
-        <LogOut className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-        <span className="text-sm sm:text-base">Log Out</span>
-      </button>
+      <div className="absolute bottom-0 left-0 w-64 p-4 bg-black border-t border-gray-800">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full bg-gray-700 mr-3"></div>
+            <div>
+              <div className="text-gray-300 text-sm">นามปากกา : marisa</div>
+              <div className="text-gray-400 text-xs">Point : 2000 pt</div>
+            </div>
+          </div>
+          <button className="text-gray-400 hover:text-gray-300">
+            <Settings className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

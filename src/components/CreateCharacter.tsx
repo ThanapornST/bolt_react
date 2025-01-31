@@ -6,6 +6,7 @@ import { CharacterDialog } from './Character/CharacterDialog';
 import { DialogInput } from './Character/DialogInput';
 
 
+
 function CreateCharacter() {
   const [dialogs, setDialogs] = useState([
     { id: 1, character: 'MiCael', content: 'ฉันมองไปได้รอบนิดหน่อยๆ', avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop', isEditing: false },

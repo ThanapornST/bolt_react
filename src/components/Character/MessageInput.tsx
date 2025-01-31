@@ -1,21 +1,21 @@
 import React from 'react';
 import { Mic } from 'lucide-react';
 
-interface DialogInputProps {
-  newDialog: string;
-  onDialogChange: (dialog: string) => void;
-  onSendDialog: () => void;
+interface MessageInputProps {
+  newMessage: string;
+  onMessageChange: (message: string) => void;
+  onSendMessage: () => void;
 }
 
-export function DialogInput({ newDialog, onDialogChange, onSendDialog }: DialogInputProps) {
+export function MessageInput({ newMessage, onMessageChange, onSendMessage }: MessageInputProps) {
   return (
     <div className="border-t border-gray-200 p-4 bg-white">
       <div className="flex items-end space-x-4">
         <div className="flex-1">
           <textarea
-            value={newDialog}
-            onChange={(e) => onDialogChange(e.target.value)}
-            placeholder="พิมพ์บทสนทนาของตัวละคร..."
+            value={newMessage}
+            onChange={(e) => onMessageChange(e.target.value)}
+            placeholder="เขียนนิยายของคุณ..."
             className="w-full bg-gray-50 text-gray-900 rounded-lg p-3 min-h-[100px] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -24,10 +24,10 @@ export function DialogInput({ newDialog, onDialogChange, onSendDialog }: DialogI
             <Mic className="w-5 h-5" />
           </button>
           <button
-            onClick={onSendDialog}
+            onClick={onSendMessage}
             className="px-6 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600"
           >
-            เพิ่ม
+            Add
           </button>
         </div>
       </div>
