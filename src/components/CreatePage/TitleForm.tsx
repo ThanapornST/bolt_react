@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Image as ImageIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface FormData {
   novelTitle: string;
@@ -24,8 +25,16 @@ const TitleForm: React.FC<TitleFormProps> = ({
   formData,
   onClose,
   onInputChange,
-  onSubmit
+  onSubmit: propOnSubmit
 }) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    propOnSubmit(e);
+    navigate('/editor'); // Navigate to the editor page after form submission
+  };
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen p-4">
@@ -44,7 +53,7 @@ const TitleForm: React.FC<TitleFormProps> = ({
           <h2 className="text-2xl font-bold text-center mb-2">Create Title</h2>
           <p className="text-gray-500 text-center mb-6">The type of story you want to create</p>
 
-          <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-1 space-y-6">
               <div className="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-gray-300">
                 <ImageIcon className="w-12 h-12 text-gray-400 mb-2" />
