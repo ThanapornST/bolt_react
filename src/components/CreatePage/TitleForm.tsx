@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { X, Image as ImageIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,11 +28,74 @@ const TitleForm: React.FC<TitleFormProps> = ({
   onSubmit: propOnSubmit
 }) => {
   const navigate = useNavigate();
+  const [coverImage, setCoverImage] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [activeButton, setActiveButton] = useState<string>(formData.selectedTime);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     propOnSubmit(e);
-    navigate('/editor'); // Navigate to the editor page after form submission
+    navigate('/editor');
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert('Image size must be less than 2MB');
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert('Image size must be less than 2MB');
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setCoverImage(null);
+  };
+
+  const handleTimeSelect = (time: string) => {
+    setActiveButton(time);
+    onInputChange({ target: { name: 'selectedTime', value: time } } as any);
   };
 
   return (
@@ -54,13 +117,48 @@ const TitleForm: React.FC<TitleFormProps> = ({
           <p className="text-gray-500 text-center mb-6">The type of story you want to create</p>
 
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="md:col-span-1 space-y-6">
-              <div className="aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-gray-300">
-                <ImageIcon className="w-12 h-12 text-gray-400 mb-2" />
-                <span className="text-lg font-medium text-gray-900">Image jpg/png</span>
-                <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                  Choose File
-                </button>
+            <div className="md:col-span-1">
+              <div 
+                className={`aspect-square bg-gray-100 rounded-lg flex flex-col items-center justify-center border-2 ${
+                  isDragging ? 'border-blue-500 bg-blue-50' : 'border-dashed border-gray-300'
+                } relative overflow-hidden`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                {coverImage ? (
+                  <div className="relative w-full h-full group">
+                    <img
+                      src={coverImage}
+                      alt="Cover preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <button
+                        type="button"
+                        onClick={removeImage}
+                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+                      >
+                        Remove Image
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <ImageIcon className="w-12 h-12 text-gray-400 mb-2" />
+                    <span className="text-lg font-medium text-gray-900">Drag & Drop or Click to Upload</span>
+                    <span className="text-sm text-gray-500 mt-2">JPG, PNG or GIF (Max 2MB)</span>
+                    <label className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer active:bg-blue-600">
+                      Choose File
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="hidden"
+                      />
+                    </label>
+                  </>
+                )}
               </div>
             </div>
 
@@ -186,10 +284,12 @@ const TitleForm: React.FC<TitleFormProps> = ({
                   <button
                     key={time}
                     type="button"
-                    className={`px-4 py-2 rounded-lg ${
-                      formData.selectedTime === time.toString() ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      activeButton === time.toString()
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-200 text-gray-700 active:bg-blue-500 active:text-white'
                     }`}
-                    onClick={() => onInputChange({ target: { name: 'selectedTime', value: time.toString() } } as any)}
+                    onClick={() => handleTimeSelect(time.toString())}
                   >
                     {time} seconds
                   </button>
@@ -198,7 +298,7 @@ const TitleForm: React.FC<TitleFormProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-3 bg-black text-white rounded-lg hover:bg-gray-800"
+                className="w-full py-3 bg-black text-white rounded-lg active:bg-gray-800"
               >
                 Generate Text
               </button>

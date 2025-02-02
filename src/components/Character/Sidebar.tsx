@@ -1,11 +1,14 @@
 import React from 'react';
 import { BookOpen, Home, Mic, Plus, Settings, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   onShowProjectInfo: () => void;
 }
 
 export function Sidebar({ onShowProjectInfo }: SidebarProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="w-64 bg-black border-r border-gray-800">
       <div className="p-4">
@@ -26,7 +29,10 @@ export function Sidebar({ onShowProjectInfo }: SidebarProps) {
             <BookOpen className="w-5 h-5 mr-3" />
             <span>ข้อมูลProjects</span>
           </button>
-          <button className="flex items-center px-4 py-2 text-emerald-500 hover:bg-gray-800 rounded-lg w-full">
+          <button 
+            onClick={() => navigate('/create-voice')}
+            className="flex items-center px-4 py-2 text-emerald-500 hover:bg-gray-800 rounded-lg w-full"
+          >
             <Mic className="w-5 h-5 mr-3" />
             <span>สร้างเสียงตัวละคร</span>
           </button>

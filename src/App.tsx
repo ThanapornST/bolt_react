@@ -5,6 +5,7 @@ import RegisterCard from './components/Login/RegisterCard';
 import HomePage from './components/HomePage';
 import CreatePage from './components/CreatePage';
 import NovelEditor from './components/NovelEditor/NovelEditor';
+import CreateVoicePage from './components/CreateVoice/CreateVoicePage';
 import { X } from 'lucide-react';
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/register" element={<AuthLayout><RegisterCard /></AuthLayout>} />
         <Route path="/create" element={<CreatePage />} />
         <Route path="/editor" element={<NovelEditor />} />
+        <Route path="/create-voice" element={<CreateVoicePage />} />
       </Routes>
     </Router>
   );
