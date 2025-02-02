@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import {  Image as ImageIcon, Mic, Sparkles } from 'lucide-react';
+import { Image as ImageIcon, Mic, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface CharacterInfoProps {
   onClose: () => void;
 }
 
 export function CharacterInfo({ onClose }: CharacterInfoProps) {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [personality, setPersonality] = useState('');
   const [description, setDescription] = useState('');
@@ -20,6 +22,10 @@ export function CharacterInfo({ onClose }: CharacterInfoProps) {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleCreateVoice = () => {
+    navigate('/create-voice');
   };
 
   return (
@@ -111,7 +117,10 @@ export function CharacterInfo({ onClose }: CharacterInfoProps) {
                 เสียงตัวละคร
               </label>
               <div className="flex space-x-4">
-                <button className="flex items-center px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600">
+                <button 
+                  onClick={handleCreateVoice}
+                  className="flex items-center px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600"
+                >
                   <Mic className="w-5 h-5 mr-2" />
                   <span>บันทึกเสียง</span>
                 </button>
