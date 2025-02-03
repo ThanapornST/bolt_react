@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
-import { X, Upload, Plus } from 'lucide-react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from "react";
+import { X, Upload, Plus } from "lucide-react";
 
 interface ProjectInfoProps {
   onClose: () => void;
 }
 
 export const ProjectInfo: React.FC<ProjectInfoProps> = ({ onClose }) => {
-  const [coverImage, setCoverImage] = useState<string>('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=228&q=80');
-  const [characters, setCharacters] = useState([
-    { id: 1, image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', name: 'ตัวละครที่ 1' },
-    { id: 2, image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', name: 'ตัวละครที่ 2' },
-    { id: 3, image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', name: 'ตัวละครที่ 3' },
+  const [coverImage, setCoverImage] = useState<string>(
+    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=228&q=80"
+  );
+  const [characters] = useState([
+    {
+      id: 1,
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      name: "ตัวละครที่ 1",
+    },
+    {
+      id: 2,
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      name: "ตัวละครที่ 2",
+    },
+    {
+      id: 3,
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      name: "ตัวละครที่ 3",
+    },
   ]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,11 +59,11 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({ onClose }) => {
             </button>
           </div>
         </div>
-        
-        <div className="space-y-8">
-          {/* Cover Image Section */}
-          <div className="relative">
-            <div className="aspect-[16/9] bg-[#1E293B] rounded-lg overflow-hidden">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+          {/* รูปภาพ */}
+          <div className="col-span-1 flex flex-col items-center">
+            <div className="w-64 h-64 rounded-lg overflow-hidden bg-gray-200">
               {coverImage ? (
                 <img
                   src={coverImage}
@@ -53,77 +71,100 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({ onClose }) => {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-gray-400">No image selected</span>
+                <div className="w-full h-full flex items-center justify-center text-gray-400">
+                  No image selected
                 </div>
               )}
             </div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <label className="px-6 py-3 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 flex items-center space-x-2">
-                <Upload className="w-5 h-5" />
-                <span>อัพโหลดรูปภาพ</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="hidden"
-                />
-              </label>
-            </div>
-            <div className="mt-2 text-center text-sm text-gray-400">
+
+            {/* ปุ่มอัปโหลดรูป */}
+            <label className="mt-3 w-full px-6 py-3 bg-blue-500 text-white text-sm font-medium rounded-lg cursor-pointer hover:bg-blue-600 flex items-center justify-center space-x-2">
+              <Upload className="w-5 h-5" />
+              <span>อัพโหลดรูปภาพ</span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+            </label>
+
+            {/* คำอธิบายขนาดไฟล์ */}
+            <p className="mt-2 text-center text-sm text-gray-400">
               รองรับไฟล์ JPG, PNG และ GIF ขนาดไม่เกิน 2MB
+            </p>
+          </div>
+
+          {/* ฟอร์ม (ขยับไปทางขวา) */}
+          <div className="col-span-2 space-y-4 ml-auto w-3/4">
+            {/* ชื่อเรื่อง */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                ชื่อเรื่อง
+              </label>
+              <input
+                type="text"
+                className="w-full max-w-lg px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 text-black"
+                placeholder="ใส่ชื่อเรื่องของคุณ"
+              />
             </div>
-          </div>
 
-          {/* Title Section */}
-          <div>
-            <label className="block text-sm font-medium mb-2">ชื่อเรื่อง</label>
-            <input
-              type="text"
-              className="w-full px-4 py-3 bg-[#1E293B] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-100"
-              placeholder="ใส่ชื่อเรื่องของคุณ"
-            />
-          </div>
+            {/* คำอธิบาย */}
+            <div>
+              <label className="block text-sm font-medium mb-2">คำอธิบาย</label>
+              <textarea
+                className="w-full max-w-lg px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 h-24 text-black placeholder-gray-400"
+                placeholder="คำอธิบายนิยาย"
+              />
+            </div>
 
-          {/* Description Section */}
-          <div>
-            <label className="block text-sm font-medium mb-2">คำอธิบาย</label>
-            <textarea
-              className="w-full px-4 py-3 bg-[#1E293B] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 text-gray-100"
-              placeholder="คำอธิบายนิยาย"
-            />
-          </div>
-
-          {/* Category Section */}
-          <div>
-            <label className="block text-sm font-medium mb-2">หมวดหมู่นิยาย</label>
-            <select className="w-full px-4 py-3 bg-[#1E293B] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-100">
-              <option value="">เลือกหมวดหมู่</option>
-              <option value="fantasy">แฟนตาซี</option>
-              <option value="romance">โรแมนติก</option>
-              <option value="action">แอคชั่น</option>
-              <option value="horror">สยองขวัญ</option>
-            </select>
+            {/* หมวดหมู่นิยาย */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                หมวดหมู่นิยาย
+              </label>
+              <select className="w-full max-w-lg px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white text-gray-800">
+                <option className="text-gray-400">เลือกหมวดหมู่</option>
+                <option className="text-black" value="romance">
+                  โรแมนติก
+                </option>
+                <option className="text-black" value="fantasy">
+                  แฟนตาซี
+                </option>
+                <option className="text-black" value="action">
+                  แอคชั่น
+                </option>
+                <option className="text-black" value="horror">
+                  สยองขวัญ
+                </option>
+                <option className="text-black" value="comedy">
+                  ตลก
+                </option>
+              </select>
+            </div>
           </div>
 
           {/* Characters Section */}
-          <div>
-            <label className="block text-sm font-medium mb-4">ตัวละครทั้งหมด</label>
-            <div className="flex items-center space-x-6">
-              {characters.map((character) => (
-                <div key={character.id} className="text-center">
-                  <div className="w-16 h-16 rounded-full overflow-hidden mb-2">
+          <div className="mt-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              ตัวละครทั้งหมด
+            </label>
+            <div className="flex space-x-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full overflow-hidden mb-2">
                     <img
-                      src={character.image}
-                      alt={character.name}
+                      src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop"
+                      alt={`Character ${i}`}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <span className="text-sm text-gray-400">{character.name}</span>
+                  <p className="text-gray-600 text-sm">ตัวละครที่ {i}</p>
                 </div>
               ))}
-              <button className="w-16 h-16 rounded-full border-2 border-dashed border-gray-600 flex items-center justify-center hover:border-blue-500 hover:text-blue-500">
-                <Plus className="w-6 h-6" />
+              {/* ปุ่มเพิ่มตัวละคร */}
+              <button className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200">
+                <Plus className="w-6 h-6 text-blue-600" />
               </button>
             </div>
           </div>

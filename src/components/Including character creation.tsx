@@ -5,6 +5,7 @@ import { EditorHeader } from './Editor/EditorHeader';
 import { MessageList } from './Editor/MessageList';
 import { MessageInput } from './Editor/MessageInput';
 import { Sidebar } from './Sidebar';
+import { Mic } from 'lucide-react'; // ✅ นำเข้าไอคอน Microphone
 
 interface Message {
   id: number;
@@ -26,51 +27,12 @@ function Including_character_creation() {
   const [showProjectInfo, setShowProjectInfo] = useState(false);
   const [showCharacterCreation, setShowCharacterCreation] = useState(false);
   const [selectedChapter, setSelectedChapter] = useState(1);
-  const [activeView, setActiveView] = useState('home');
+  const [activeView, setActiveView] = useState('home'); // ✅ เพิ่ม activeView ให้รองรับ 'voice'
 
   const handleNavigation = (view: string) => {
     setActiveView(view);
     setShowProjectInfo(view === 'project');
     setShowCharacterCreation(view === 'character');
-  };
-
-  const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      setMessages([...messages, {
-        id: messages.length + 1,
-        character: 'MiCael',
-        content: newMessage,
-        avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop',
-        isEditing: false
-      }]);
-      setNewMessage('');
-    }
-  };
-
-  const startEditing = (message: Message) => {
-    const updatedMessages = messages.map(msg => ({
-      ...msg,
-      isEditing: msg.id === message.id
-    }));
-    setMessages(updatedMessages);
-    setEditingContent(message.content);
-  };
-
-  const saveEdit = (messageId: number) => {
-    const updatedMessages = messages.map(msg => 
-      msg.id === messageId
-        ? { ...msg, content: editingContent, isEditing: false }
-        : msg
-    );
-    setMessages(updatedMessages);
-  };
-
-  const cancelEdit = (messageId: number) => {
-    const updatedMessages = messages.map(msg => 
-      msg.id === messageId ? { ...msg, isEditing: false } : msg
-    );
-    setMessages(updatedMessages);
-    setEditingContent('');
   };
 
   return (
@@ -87,24 +49,57 @@ function Including_character_creation() {
         <ProjectInfo onClose={() => handleNavigation('home')} />
       ) : showCharacterCreation ? (
         <CharacterCreation />
-      ) : (
+      ) : activeView === "voice" ? ( // ✅ เพิ่มเงื่อนไขแสดง "สร้างเสียงตัวละคร"
         <div className="flex-1 flex flex-col">
           <EditorHeader wordCount={wordCount} />
+        </div>
+      ) : (
+        <div className="flex-1 flex flex-col">
           <MessageList
             messages={messages}
             editingContent={editingContent}
             setEditingContent={setEditingContent}
-            startEditing={startEditing}
-            saveEdit={saveEdit}
-            cancelEdit={cancelEdit}
+            startEditing={(msg) =>
+              setMessages(messages.map(m => m.id === msg.id ? { ...m, isEditing: true } : m))
+            }
+            saveEdit={(id) =>
+              setMessages(messages.map(m => m.id === id ? { ...m, content: editingContent, isEditing: false } : m))
+            }
+            cancelEdit={(id) =>
+              setMessages(messages.map(m => m.id === id ? { ...m, isEditing: false } : m))
+            }
           />
           <MessageInput
             newMessage={newMessage}
             setNewMessage={setNewMessage}
-            handleSendMessage={handleSendMessage}
+            handleSendMessage={() => {
+              if (newMessage.trim()) {
+                setMessages([...messages, {
+                  id: messages.length + 1,
+                  character: 'MiCael',
+                  content: newMessage,
+                  avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop',
+                  isEditing: false
+                }]);
+                setNewMessage('');
+              }
+            }}
           />
         </div>
       )}
+
+      {/* ✅ ปุ่มสร้างเสียงตัวละคร */}
+      <div className="absolute bottom-4 right-4">
+        <button
+          onClick={() => handleNavigation("voice")}
+          className={`flex items-center space-x-3 px-4 py-2 rounded-lg ${
+            activeView === "voice" ? "bg-emerald-500 text-white" : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+          }`}
+        >
+          <Mic className="w-5 h-5" />
+          <span>สร้างเสียงตัวละคร</span>
+        </button>
+      </div>
     </div>
   );
 }

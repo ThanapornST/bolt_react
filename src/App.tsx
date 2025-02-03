@@ -47,6 +47,7 @@ function App() {
         <Route path="/create" element={<CreatePage />} />
         <Route path="/editor" element={<NovelEditor />} />
         <Route path="/create-voice" element={<CreateVoicePage />} />
+        <Route path="/ai-novel" element={<Including_character_creation />} />
         <Route path="/including-character-creation" element={<Including_character_creation />} />
       </Routes>
     </Router>
