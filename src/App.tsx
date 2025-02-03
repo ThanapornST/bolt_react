@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import CreatePage from './components/CreatePage';
 import NovelEditor from './components/NovelEditor/NovelEditor';
 import CreateVoicePage from './components/CreateVoice/CreateVoicePage';
+import Including_character_creation from './components/Including character creation';
 import { X } from 'lucide-react';
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/create" element={<CreatePage />} />
         <Route path="/editor" element={<NovelEditor />} />
         <Route path="/create-voice" element={<CreateVoicePage />} />
+        <Route path="/including-character-creation" element={<Including_character_creation />} />
       </Routes>
     </Router>
   );

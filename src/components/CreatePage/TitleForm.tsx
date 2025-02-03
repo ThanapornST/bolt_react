@@ -35,7 +35,8 @@ const TitleForm: React.FC<TitleFormProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     propOnSubmit(e);
-    navigate('/editor');
+    // Navigate to Including character creation page
+    navigate('/including-character-creation');
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -298,7 +299,7 @@ const TitleForm: React.FC<TitleFormProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-3 bg-black text-white rounded-lg active:bg-gray-800"
+                className="w-full py-3 bg-black text-white rounded-lg active:bg-gray-800 hover:bg-gray-900 transition-colors"
               >
                 Generate Text
               </button>
