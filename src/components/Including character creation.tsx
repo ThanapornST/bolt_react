@@ -1,11 +1,10 @@
-import { Sidebar } from 'lucide-react';
 import React, { useState } from 'react';
-import { ProjectInfo } from './Including character creation/ProjectInfo/ProjectInfo';
-import { CharacterCreation } from './Including character creation/CharacterCreation/CharacterCreation';
-import { EditorHeader } from './Including character creation/Editor/EditorHeader';
-import { MessageList } from './Including character creation/Editor/MessageList';
-import { MessageInput } from './Including character creation/Editor/MessageInput';
-
+import { ProjectInfo } from './ProjectInfo';
+import { CharacterCreation } from './CharacterCreation/CharacterCreation';
+import { EditorHeader } from './Editor/EditorHeader';
+import { MessageList } from './Editor/MessageList';
+import { MessageInput } from './Editor/MessageInput';
+import { Sidebar } from './Sidebar';
 
 interface Message {
   id: number;
@@ -18,7 +17,7 @@ interface Message {
 function Including_character_creation() {
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, character: 'MiCael', content: 'ฉันมองไปได้รอบนิดหน่อยๆ', avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop', isEditing: false },
-    { id: 2, character: 'MiCael', content: 'เข <boltAction type="file" filePath="src/App.tsx">ียนนิยายของคุณ', avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop', isEditing: false },
+    { id: 2, character: 'MiCael', content: 'เขียนนิยายของคุณ', avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop', isEditing: false },
     { id: 3, character: 'MiCael', content: 'เขียนนิยายของคุณ', avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=150&h=150&fit=crop', isEditing: false }
   ]);
   const [newMessage, setNewMessage] = useState('');
