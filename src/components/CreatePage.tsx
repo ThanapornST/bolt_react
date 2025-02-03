@@ -5,7 +5,7 @@ import ProjectCard from './CreatePage/ProjectCard';
 import Stats from './CreatePage/Stats';
 import CreateTitleModal from './CreatePage/CreateTitleModal';
 import TitleForm from './CreatePage/TitleForm';
-import { Menu } from 'lucide-react';
+
 
 const CreatePage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

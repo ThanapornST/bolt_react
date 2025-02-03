@@ -95,7 +95,7 @@ const TitleForm: React.FC<TitleFormProps> = ({
 
   const handleTimeSelect = (time: string) => {
     setActiveButton(time);
-    onInputChange({ target: { name: 'selectedTime', value: time } } as any);
+    onInputChange({ target: { name: 'selectedTime', value: time } } as never);
   };
 
   return (
