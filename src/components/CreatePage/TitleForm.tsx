@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Image as ImageIcon } from 'lucide-react';
+import React, { useState } from "react";
+import { Eye, EyeOff, Image as ImageIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 interface FormData {
@@ -34,8 +34,10 @@ const TitleForm: React.FC<TitleFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Save form data to localStorage for AI generation
+    localStorage.setItem('novelData', JSON.stringify(formData));
     propOnSubmit(e);
-    // Navigate to Including character creation page
+    // Navigate to Including character creation page with AI view active
     navigate('/including-character-creation');
   };
 
@@ -110,7 +112,7 @@ const TitleForm: React.FC<TitleFormProps> = ({
               onClick={onClose}
               className="text-gray-400 hover:text-gray-500"
             >
-              <X className="w-6 h-6" />
+              <EyeOff className="w-6 h-6" />
             </button>
           </div>
 
@@ -301,7 +303,7 @@ const TitleForm: React.FC<TitleFormProps> = ({
                 type="submit"
                 className="w-full py-3 bg-black text-white rounded-lg active:bg-gray-800 hover:bg-gray-900 transition-colors"
               >
-                Generate Text
+                Generate Novel with AI
               </button>
             </div>
           </form>
