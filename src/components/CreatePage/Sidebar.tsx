@@ -1,37 +1,17 @@
 import React, { useState } from 'react';
-import { BookText, LogOut, PlusCircle, ScrollText, ChevronDown, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-
-interface MenuItem {
-  label: string;
-  items?: string[];
-}
+import { Home, BookOpen, Mic, Sparkles, Plus, Edit2, Check, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 interface SidebarProps {
   onNewProject: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onNewProject }) => {
-  const navigate = useNavigate();
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({
     Novel: true,
     Create: true
   });
-
-  const menuItems: MenuItem[] = [
-    {
-      label: "Novel",
-      items: ["Novel 1", "Novel 2"]
-    },
-    {
-      label: "Create",
-      items: ["Journal", "Diary", "Finish", "New Form", "AI"]
-    }
-  ];
-
-  const handleLogout = () => {
-    navigate('/');
-  };
 
   const toggleExpand = (label: string) => {
     setExpandedItems(prev => ({
@@ -41,66 +21,104 @@ const Sidebar: React.FC<SidebarProps> = ({ onNewProject }) => {
   };
 
   return (
-    <div className="w-64 bg-black text-white h-full p-4 sm:p-6 flex flex-col">
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-xl sm:text-2xl font-bold">Write</h1>
-        <div className="h-0.5 w-16 bg-blue-500 mt-1"></div>
-        <h2 className="text-base sm:text-lg text-gray-400">Whisper</h2>
+    <div className={`w-64 h-full flex flex-col ${
+      isDarkMode ? 'bg-gray-900' : 'bg-gray-800'
+    } transition-colors duration-200`}>
+      {/* Header */}
+      <div className="p-6 border-b border-gray-700">
+        <div className="flex items-center space-x-2">
+          <BookOpen className="w-6 h-6 text-blue-500" />
+          <h1 className="text-xl font-bold text-white">WriteWhisper</h1>
+        </div>
       </div>
 
-      <button 
-        onClick={onNewProject}
-        className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 px-3 sm:px-4 flex items-center justify-center transition-colors mb-4"
-      >
-        <PlusCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-        New Project
-      </button>
+      {/* New Project Button */}
+      <div className="p-4">
+        <button 
+          onClick={onNewProject}
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-3 flex items-center justify-center transition-colors"
+        >
+          <Plus className="w-5 h-5 mr-2" />
+          <span>New Project</span>
+        </button>
+      </div>
 
-      <nav className="flex-1 overflow-y-auto">
-        <ul className="space-y-1">
-          {menuItems.map((item) => (
-            <li key={item.label} className="mb-2">
-              <button
-                onClick={() => toggleExpand(item.label)}
-                className="w-full flex items-center justify-between text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg p-2 sm:p-3 transition-colors"
-              >
-                <span className="flex items-center">
-                  {item.label === "Novel" ? (
-                    <BookText className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                  ) : (
-                    <ScrollText className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                  )}
-                  <span className="text-sm sm:text-base">{item.label}</span>
-                </span>
-                {expandedItems[item.label] ? (
-                  <ChevronDown className="w-4 h-4" />
-                ) : (
-                  <ChevronRight className="w-4 h-4" />
-                )}
-              </button>
-              {expandedItems[item.label] && item.items && (
-                <ul className="ml-6 sm:ml-8 mt-1 space-y-1">
-                  {item.items.map((subItem) => (
-                    <li key={subItem}>
-                      <button className="w-full text-left text-gray-400 hover:text-white p-1.5 sm:p-2 rounded-lg hover:bg-gray-800 transition-colors text-xs sm:text-sm">
-                        {subItem}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
+      {/* Navigation */}
+      <nav className="flex-1 px-4 overflow-y-auto">
+        <div className="space-y-4">
+          {[
+            { icon: Home, label: 'หน้าหลัก', view: 'home' },
+            { icon: BookOpen, label: 'ข้อมูลProjects', view: 'project' },
+            { icon: Mic, label: 'สร้างเสียงตัวละคร', view: 'voice' },
+            { icon: Sparkles, label: 'AI สร้างนิยาย', view: 'ai' }
+          ].map(({ icon: Icon, label, view }) => (
+            <button
+              key={view}
+              className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+              }`}
+            >
+              <Icon className="w-5 h-5" />
+              <span>{label}</span>
+            </button>
           ))}
-        </ul>
+        </div>
+
+        {/* Chapters Section */}
+        <div className="mt-8">
+          <h3 className="px-3 text-sm font-medium text-gray-400 uppercase">ตอนทั้งหมด</h3>
+          <div className="mt-2 space-y-1">
+            {['จุดเริ่มต้นของการเดินทาง', 'ความลับที่ถูกซ่อนไว้'].map((chapter, index) => (
+              <button
+                key={index}
+                className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                  isDarkMode 
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`}
+              >
+                <span>{chapter}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </nav>
 
-      <button 
-        onClick={handleLogout}
-        className="w-full flex items-center text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg p-2 sm:p-3 transition-colors mt-auto"
-      >
-        <LogOut className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-        <span className="text-sm sm:text-base">Log Out</span>
-      </button>
+      {/* User Profile and Dark Mode Toggle */}
+      <div className={`p-4 border-t border-gray-700 ${
+        isDarkMode ? 'bg-gray-900' : 'bg-gray-800'
+      }`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <img
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt="Profile"
+              className="w-8 h-8 rounded-full"
+            />
+            <div>
+              <div className="text-sm font-medium text-white">นามปากกา : marisa</div>
+              <div className="text-xs text-gray-400">Point : 2000 pt</div>
+            </div>
+          </div>
+          <button
+            onClick={toggleDarkMode}
+            className={`p-2 rounded-lg transition-colors ${
+              isDarkMode 
+                ? 'hover:bg-gray-800 text-yellow-500'
+                : 'hover:bg-gray-700 text-blue-500'
+            }`}
+            aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDarkMode ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

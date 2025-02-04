@@ -5,12 +5,13 @@ import ProjectCard from './CreatePage/ProjectCard';
 import Stats from './CreatePage/Stats';
 import CreateTitleModal from './CreatePage/CreateTitleModal';
 import TitleForm from './CreatePage/TitleForm';
-
+import { useTheme } from '../context/ThemeContext';
 
 const CreatePage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showTitleForm, setShowTitleForm] = useState(false);
+  const { isDarkMode } = useTheme();
   const [formData, setFormData] = useState({
     novelTitle: '',
     numberOfCharacters: '',
@@ -43,11 +44,10 @@ const CreatePage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Handle form submission
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className={`flex h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'} transition-colors duration-200`}>
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-40 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)}></div>
@@ -79,7 +79,7 @@ const CreatePage = () => {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <main className={`flex-1 overflow-y-auto p-4 sm:p-6 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
           <div className="max-w-7xl mx-auto">
             <Stats />
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
