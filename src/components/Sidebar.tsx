@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, BookOpen, Mic, Sparkles, Plus, Settings, Edit2, Check, X, Moon, Sun } from 'lucide-react';
+import { Home, BookOpen, Mic, Sparkles, Plus, Edit2, Check, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 interface SidebarProps {
@@ -60,73 +60,42 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <div className="w-64 bg-black text-gray-300 flex flex-col h-screen">
+    <div className="w-64 bg-theme-secondary dark:bg-dark-secondary text-theme-secondary dark:text-dark-text flex flex-col h-screen transition-theme">
       {/* Header */}
-      <div className="p-4 flex items-center justify-between">
+      <div className="p-4 flex items-center justify-between border-b border-gray-700/10 dark:border-gray-700">
         <div className="flex items-center space-x-2">
           <BookOpen className="w-6 h-6 text-emerald-500" />
-          <span className="text-xl font-semibold text-white">WriteWhisper</span>
+          <span className="text-xl font-semibold text-theme-primary dark:text-dark-text">WriteWhisper</span>
         </div>
-        <button
-          onClick={toggleDarkMode}
-          className="p-2 rounded-lg hover:bg-gray-800 transition-colors"
-          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-        >
-          {isDarkMode ? (
-            <Sun className="w-5 h-5 text-yellow-500" />
-          ) : (
-            <Moon className="w-5 h-5 text-blue-500" />
-          )}
-        </button>
       </div>
 
       {/* Main Navigation */}
       <nav className="flex-1 px-3 py-4">
         <div className="space-y-1">
-          <button
-            onClick={() => handleNavigation('home')}
-            className={`w-full flex items-center space-x-3 p-2 rounded-lg ${
-              activeView === 'home' ? 'text-emerald-500' : 'hover:bg-gray-900'
-            }`}
-          >
-            <Home className="w-5 h-5" />
-            <span>หน้าหลัก</span>
-          </button>
-
-          <button
-            onClick={() => handleNavigation('project')}
-            className={`w-full flex items-center space-x-3 p-2 rounded-lg ${
-              activeView === 'project' ? 'text-emerald-500' : 'hover:bg-gray-900'
-            }`}
-          >
-            <BookOpen className="w-5 h-5" />
-            <span>ข้อมูลProjects</span>
-          </button>
-
-          <button
-            onClick={() => handleNavigation('voice')}
-            className={`w-full flex items-center space-x-3 p-2 rounded-lg ${
-              activeView === 'voice' ? 'text-emerald-500' : 'hover:bg-gray-900'
-            }`}
-          >
-            <Mic className="w-5 h-5" />
-            <span>สร้างเสียงตัวละคร</span>
-          </button>
-
-          <button
-            onClick={() => handleNavigation('ai')}
-            className={`w-full flex items-center space-x-3 p-2 rounded-lg ${
-              activeView === 'ai' ? 'text-emerald-500' : 'hover:bg-gray-900'
-            }`}
-          >
-            <Sparkles className="w-5 h-5" />
-            <span>AI สร้างนิยาย</span>
-          </button>
+          {[
+            { icon: Home, label: 'หน้าหลัก', view: 'home' },
+            { icon: BookOpen, label: 'ข้อมูลProjects', view: 'project' },
+            { icon: Mic, label: 'สร้างเสียงตัวละคร', view: 'voice' },
+            { icon: Sparkles, label: 'AI สร้างนิยาย', view: 'ai' }
+          ].map(({ icon: Icon, label, view }) => (
+            <button
+              key={view}
+              onClick={() => handleNavigation(view)}
+              className={`w-full flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                activeView === view 
+                  ? 'text-emerald-500 bg-theme-primary dark:bg-dark-primary' 
+                  : 'text-theme-primary dark:text-dark-text hover:bg-theme-primary dark:hover:bg-dark-primary/50'
+              }`}
+            >
+              <Icon className="w-5 h-5" />
+              <span>{label}</span>
+            </button>
+          ))}
         </div>
 
         {/* Chapters Section */}
         <div className="mt-8">
-          <div className="px-2 text-sm font-semibold text-gray-400">ตอนทั้งหมด</div>
+          <div className="px-2 text-sm font-semibold text-theme-secondary dark:text-dark-text/70">ตอนทั้งหมด</div>
           <div className="mt-2 space-y-1">
             {chapters.map((chapter) => (
               <div key={chapter.id} className="group relative">
@@ -136,18 +105,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       type="text"
                       value={editingTitle}
                       onChange={(e) => setEditingTitle(e.target.value)}
-                      className="flex-1 bg-gray-800 text-white rounded px-2 py-1 text-sm"
+                      className="flex-1 bg-theme-primary dark:bg-dark-primary text-theme-primary dark:text-dark-text rounded px-2 py-1 text-sm border border-gray-300 dark:border-gray-600"
                       autoFocus
                     />
                     <button
                       onClick={() => saveChapterTitle(chapter.id)}
-                      className="p-1 hover:bg-gray-700 rounded"
+                      className="p-1 hover:bg-theme-primary dark:hover:bg-dark-primary rounded"
                     >
                       <Check className="w-4 h-4 text-emerald-500" />
                     </button>
                     <button
                       onClick={cancelEditing}
-                      className="p-1 hover:bg-gray-700 rounded"
+                      className="p-1 hover:bg-theme-primary dark:hover:bg-dark-primary rounded"
                     >
                       <X className="w-4 h-4 text-red-500" />
                     </button>
@@ -155,8 +124,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 ) : (
                   <button
                     onClick={() => setSelectedChapter(chapter.id)}
-                    className={`w-full flex items-center justify-between p-2 rounded-lg ${
-                      selectedChapter === chapter.id ? 'text-emerald-500 bg-gray-800' : 'hover:bg-gray-900'
+                    className={`w-full flex items-center justify-between p-2 rounded-lg transition-colors ${
+                      selectedChapter === chapter.id 
+                        ? 'text-emerald-500 bg-theme-primary dark:bg-dark-primary' 
+                        : 'text-theme-primary dark:text-dark-text hover:bg-theme-primary dark:hover:bg-dark-primary/50'
                     }`}
                   >
                     <span className="truncate">{chapter.title}</span>
@@ -165,7 +136,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         e.stopPropagation();
                         startEditing(chapter);
                       }}
-                      className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-700 rounded"
+                      className="opacity-0 group-hover:opacity-100 p-1 hover:bg-theme-primary dark:hover:bg-dark-primary rounded"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
@@ -178,7 +149,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Add New Chapter Button */}
           <button 
             onClick={addNewChapter}
-            className="w-full flex items-center space-x-2 p-2 text-emerald-500 hover:bg-gray-900 rounded-lg mt-2"
+            className="w-full flex items-center space-x-2 p-2 text-emerald-500 hover:bg-theme-primary dark:hover:bg-dark-primary rounded-lg mt-2 transition-colors"
           >
             <Plus className="w-5 h-5" />
             <span>เพิ่มตอนใหม่</span>
@@ -187,7 +158,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </nav>
 
       {/* User Profile Section */}
-      <div className="p-4 border-t border-gray-800">
+      <div className="p-4 border-t border-gray-700/10 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <img
@@ -196,15 +167,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className="w-8 h-8 rounded-full"
             />
             <div>
-              <div className="text-sm font-medium text-gray-200">นามปากกา : marisa</div>
-              <div className="text-xs text-gray-400">Point : 2000 pt</div>
+              <div className="text-sm font-medium text-theme-primary dark:text-dark-text">นามปากกา : marisa</div>
+              <div className="text-xs text-theme-secondary dark:text-dark-text/70">Point : 2000 pt</div>
             </div>
           </div>
           <button
-            onClick={() => handleNavigation('settings')}
-            className="p-1.5 hover:bg-gray-800 rounded-lg"
+            onClick={toggleDarkMode}
+            className="p-2 rounded-lg hover:bg-theme-primary dark:hover:bg-dark-primary transition-colors"
+            aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
-            <Settings className="w-5 h-5" />
+            {isDarkMode ? (
+              <Sun className="w-5 h-5 text-yellow-500" />
+            ) : (
+              <Moon className="w-5 h-5 text-blue-500" />
+            )}
           </button>
         </div>
       </div>

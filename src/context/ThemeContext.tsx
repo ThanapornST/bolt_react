@@ -16,6 +16,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDarkMode);
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    
+    // Apply base background and text colors to body
+    document.body.style.backgroundColor = isDarkMode ? '#1A1A1A' : '#F5F3EE';
+    document.body.style.color = isDarkMode ? '#E2E8F0' : '#2D3748';
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {

@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* Light mode styles */
+:root {
+  --background-primary: #F5F3EE;
+  --background-secondary: #E8E4DD;
+  --text-primary: #2D3748;
+  --text-secondary: #4A5568;
+}
+
+/* Dark mode styles */
+.dark {
+  --background-primary: #1A1A1A;
+  --background-secondary: #242424;
+  --text-primary: #E2E8F0;
+  --text-secondary: #A0AEC0;
+}
+
+/* Common styles */
+.bg-theme-primary {
+  background-color: var(--background-primary);
+}
+
+.bg-theme-secondary {
+  background-color: var(--background-secondary);
+}
+
+.text-theme-primary {
+  color: var(--text-primary);
+}
+
+.text-theme-secondary {
+  color: var(--text-secondary);
+}
+
+/* Smooth transitions */
+.transition-theme {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
