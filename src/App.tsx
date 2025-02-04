@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginCard from './components/Login/LoginCard';
 import RegisterCard from './components/Login/RegisterCard';
 import HomePage from './components/HomePage';
@@ -7,6 +7,8 @@ import CreatePage from './components/CreatePage';
 import NovelEditor from './components/NovelEditor/NovelEditor';
 import CreateVoicePage from './components/CreateVoice/CreateVoicePage';
 import Including_character_creation from './components/Including character creation';
+import ChatNovel from './components/ChatNovel/ChatNovel';
+import NovelGenerator from './components/NovelGenerator/NovelGenerator';
 import { X } from 'lucide-react';
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -42,12 +44,15 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<AuthLayout><LoginCard /></AuthLayout>} />
         <Route path="/register" element={<AuthLayout><RegisterCard /></AuthLayout>} />
         <Route path="/create" element={<CreatePage />} />
         <Route path="/editor" element={<NovelEditor />} />
         <Route path="/create-voice" element={<CreateVoicePage />} />
         <Route path="/ai-novel" element={<Including_character_creation />} />
+        <Route path="/chat-novel" element={<ChatNovel />} />
+        <Route path="/novel-generator" element={<NovelGenerator />} />
         <Route path="/including-character-creation" element={<Including_character_creation />} />
       </Routes>
     </Router>

@@ -1,18 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-xl font-semibold text-white">
+          <Link to="/" className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
             WriteWhisper
-          </span>
+          </Link>
         </div>
         <div className="hidden md:flex space-x-6">
-          <a href="#" className="text-white hover:text-blue-400 transition-colors">Home</a>
-          <a href="#" className="text-white hover:text-blue-400 transition-colors">Write a Story</a>
+          <Link to="/" className="text-white hover:text-blue-400 transition-colors">Home</Link>
+          <Link to="/create" className="text-white hover:text-blue-400 transition-colors">Write a Story</Link>
           <a href="#" className="text-white hover:text-blue-400 transition-colors">Showcase</a>
           <a href="#" className="text-white hover:text-blue-400 transition-colors">Blogs</a>
           <a href="#" className="text-white hover:text-blue-400 transition-colors">Pricing</a>
