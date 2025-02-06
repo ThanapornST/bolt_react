@@ -11,6 +11,7 @@ import Including_character_creation from './components/Including character creat
 import ChatNovel from './components/ChatNovel/ChatNovel';
 import NovelGenerator from './components/NovelGenerator/NovelGenerator';
 import PricingPage from './components/PricingPage';
+import PaymentPage from './components/PaymentPage';
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/novel-generator" element={<NovelGenerator />} />
             <Route path="/including-character-creation" element={<Including_character_creation />} />
             <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
           </Routes>
         </Router>
       </div>
