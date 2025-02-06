@@ -1,9 +1,12 @@
 import React from "react";
 import LoginForm from "./LoginForm";
 import SocialLogin from "./SocialLogin";
-import { Pen } from "lucide-react";
+import { Pen, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const LoginCard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex w-full h-full">
       {/* Left side - Image */}
@@ -14,7 +17,15 @@ const LoginCard = () => {
       />
       
       {/* Right side - Login Form */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full md:w-1/2 flex items-center justify-center p-8 relative">
+        {/* Close Button */}
+        <button
+          onClick={() => navigate('/')}
+          className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+        >
+          <X className="w-6 h-6 text-gray-600" />
+        </button>
+
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-2">
