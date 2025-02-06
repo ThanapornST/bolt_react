@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -7,7 +8,13 @@ const Navbar = () => {
   return (
     <nav className="relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </button>
           <Link to="/" className="text-xl font-semibold text-white hover:text-blue-400 transition-colors">
             WriteWhisper
           </Link>
