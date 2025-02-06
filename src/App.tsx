@@ -10,6 +10,7 @@ import CreateVoicePage from './components/CreateVoice/CreateVoicePage';
 import Including_character_creation from './components/Including character creation';
 import ChatNovel from './components/ChatNovel/ChatNovel';
 import NovelGenerator from './components/NovelGenerator/NovelGenerator';
+import PricingPage from './components/PricingPage';
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/chat-novel" element={<ChatNovel />} />
             <Route path="/novel-generator" element={<NovelGenerator />} />
             <Route path="/including-character-creation" element={<Including_character_creation />} />
+            <Route path="/pricing" element={<PricingPage />} />
           </Routes>
         </Router>
       </div>
