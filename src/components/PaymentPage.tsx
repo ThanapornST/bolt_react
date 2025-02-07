@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, CreditCard, Building, Wallet, Check, Lock, Shield, Gift } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-interface PaymentMethod {
-  id: string;
-  name: string;
-  icon: React.ElementType;
-  description: string;
-}
+import PaymentModal from './Payment/PaymentModal';
 
 interface PlanDetails {
   name: string;
@@ -23,6 +17,7 @@ const PaymentPage = () => {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [name, setName] = useState('');
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [planDetails, setPlanDetails] = useState<PlanDetails>({
     name: 'Basic',
     price: 299,
@@ -30,7 +25,6 @@ const PaymentPage = () => {
   });
 
   useEffect(() => {
-    // Get plan details from URL params or state
     const searchParams = new URLSearchParams(location.search);
     const plan = searchParams.get('plan');
     
@@ -49,7 +43,7 @@ const PaymentPage = () => {
     }
   }, [location]);
 
-  const paymentMethods: PaymentMethod[] = [
+  const paymentMethods = [
     {
       id: 'credit_card',
       name: 'บัตรเครดิต/เดบิต',
@@ -110,8 +104,7 @@ const PaymentPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle payment submission
-    console.log('Processing payment...');
+    setShowPaymentModal(true);
   };
 
   return (
@@ -348,6 +341,15 @@ const PaymentPage = () => {
           </div>
         </div>
       </main>
+
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        amount={planDetails.price}
+        pointAmount="10000"
+        bonusPoints="2500"
+      />
     </div>
   );
 };

@@ -6,14 +6,14 @@ const features = {
   free: [
     'สร้างนิยายได้ 1 เรื่อง',
     'เสียงตัวละครพื้นฐาน 2 เสียง',
-    'AI ช่วยเขียน 10 ครั้ง/เดือน',
+    'AI ช่วยเขียน 400 แต้ม',
     'พื้นที่เก็บไฟล์ 100MB',
     'ส่งออกไฟล์ MP3 คุณภาพพื้นฐาน'
   ],
   basic: [
     'สร้างนิยายได้ไม่จำกัด',
     'เสียงตัวละครพื้นฐาน 5 เสียง',
-    'AI ช่วยเขียน 100 ครั้ง/เดือน',
+    'AI ช่วยเขียน 1000 แต้ม',
     'พื้นที่เก็บไฟล์ 1GB',
     'ส่งออกไฟล์ MP3'
   ],
@@ -39,6 +39,10 @@ const features = {
 
 const PricingPage = () => {
   const navigate = useNavigate();
+
+  const handleStartTrial = (plan: string, price: number, trialDays: number) => {
+    navigate(`/payment?plan=${plan}&price=${price}&trial=${trialDays}`);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
@@ -105,7 +109,7 @@ const PricingPage = () => {
               <Zap className="w-8 h-8 text-blue-400" />
             </div>
             <div className="mb-6">
-              <span className="text-4xl font-bold">฿299</span>
+              <span className="text-4xl font-bold">฿99</span>
               <span className="text-gray-400">/เดือน</span>
             </div>
             <ul className="space-y-4 mb-8">
@@ -116,12 +120,12 @@ const PricingPage = () => {
                 </li>
               ))}
             </ul>
-            <Link
-              to="/register"
+            <button
+              onClick={() => handleStartTrial('basic', 299, 7)}
               className="block w-full py-3 px-6 text-center bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold transition-colors"
             >
               เริ่มต้นใช้งานฟรี 7 วัน
-            </Link>
+            </button>
           </div>
 
           {/* Pro Plan */}
@@ -137,7 +141,7 @@ const PricingPage = () => {
               <Crown className="w-8 h-8 text-yellow-400" />
             </div>
             <div className="mb-6">
-              <span className="text-4xl font-bold">฿599</span>
+              <span className="text-4xl font-bold">฿399</span>
               <span className="text-blue-200">/เดือน</span>
             </div>
             <ul className="space-y-4 mb-8">
@@ -148,12 +152,12 @@ const PricingPage = () => {
                 </li>
               ))}
             </ul>
-            <Link
-              to="/register"
+            <button
+              onClick={() => handleStartTrial('pro', 599, 14)}
               className="block w-full py-3 px-6 text-center bg-blue-400 hover:bg-blue-500 rounded-lg font-semibold transition-colors"
             >
               เริ่มต้นใช้งานฟรี 14 วัน
-            </Link>
+            </button>
           </div>
 
           {/* Enterprise Plan */}
@@ -166,7 +170,7 @@ const PricingPage = () => {
               <Star className="w-8 h-8 text-purple-400" />
             </div>
             <div className="mb-6">
-              <span className="text-4xl font-bold">฿1,999</span>
+              <span className="text-4xl font-bold">฿699</span>
               <span className="text-gray-400">/เดือน</span>
             </div>
             <ul className="space-y-4 mb-8">
