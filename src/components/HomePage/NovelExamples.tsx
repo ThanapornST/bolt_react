@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NovelCard = ({ category, title, description }: { category: string; title: string; description: string }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const maxLength = 120; // กำหนดจำนวนตัวอักษรที่ต้องการแสดงก่อนตัดข้อความ
+  const maxLength = 120;
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/character-dialogue');
+  };
 
   return (
-<div className="bg-white shadow-lg rounded-lg overflow-hidden flex">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden flex">
       {/* รูปภาพและปุ่ม Play Audio */}
       <div className="w-1/3 relative">
         <img
@@ -28,12 +34,10 @@ const NovelCard = ({ category, title, description }: { category: string; title: 
           <span className="text-sm text-gray-500">Category: {category}</span>
           <h4 className="text-lg font-semibold text-gray-900 mt-2">{title}</h4>
 
-          {/* แสดงเฉพาะข้อความที่ตัด หรือ ข้อความเต็มเมื่อกด "Read More" */}
           <p className="text-sm text-gray-600">
             {isExpanded ? description : `${description.substring(0, maxLength)}...`}
           </p>
 
-          {/* ปุ่ม "Read More" */}
           {description.length > maxLength && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
@@ -44,20 +48,22 @@ const NovelCard = ({ category, title, description }: { category: string; title: 
           )}
         </div>
 
-        {/* ปุ่ม Get Started */}
-        <button className="inline-block px-6 py-2 bg-gradient-to-r from-sky-500 to-blue-700 text-white rounded-full hover:from-red-600 hover:to-orange-600 transition-all text-lg font-semibold shadow-lg">
+        <button 
+          onClick={handleGetStarted}
+          className="inline-block px-6 py-2 bg-gradient-to-r from-sky-500 to-blue-700 text-white rounded-full hover:from-red-600 hover:to-orange-600 transition-all text-lg font-semibold shadow-lg"
+        >
           Get Started Free
         </button>
       </div>
     </div>
   );
 };
-// ตัวอย่างการใช้งาน
+
 const NovelExamples = () => {
   return (
     <div className="bg-white lg:px-8">
       <h3 className="text-2xl font-bold text-gray-900 text-center mb-6">
-      Try listening to and reading an AI-generated novel example from us
+        Try listening to and reading an AI-generated novel example from us
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
         <NovelCard
