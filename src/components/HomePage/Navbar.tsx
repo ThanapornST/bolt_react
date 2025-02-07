@@ -24,15 +24,11 @@ const Navbar = () => {
           <Link to="/create" className="text-white hover:text-blue-400 transition-colors">Write a Story</Link>
           <a href="#" className="text-white hover:text-blue-400 transition-colors">Showcase</a>
           <a href="#" className="text-white hover:text-blue-400 transition-colors">Blogs</a>
-          <Link to="/pricing" className="text-white hover:text-blue-400 transition-colors">Pricing</Link>
+          <a href="#" className="text-white hover:text-blue-400 transition-colors">Pricing</a>
           <a href="#" className="text-white hover:text-blue-400 transition-colors">About Us</a>
         </div>
         <div className="flex gap-4">
-<<<<<<< HEAD
-        <Link to="/pricing" className="px-4 py-2 text-white hover:text-blue-300 transition-colors">
-=======
-          <Link to="/pricing" className="px-4 py-2 text-white hover:text-blue-300 transition-colors">
->>>>>>> b7f7c3fcde8c70a031d0d11f8f549c66e7b12e08
+          <Link to="/register" className="px-4 py-2 text-white hover:text-blue-300 transition-colors">
             Try for free
           </Link>
           <Link to="/login" className="px-4 py-2 text-white hover:text-blue-300 transition-colors">
