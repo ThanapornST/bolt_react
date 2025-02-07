@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './CreatePage/Sidebar';
-import Header from './CreatePage/Header';
+//import Header from './CreatePage/Header';
 import ProjectCard from './CreatePage/ProjectCard';
-import Stats from './CreatePage/Stats';
 import CreateTitleModal from './CreatePage/CreateTitleModal';
 import TitleForm from './CreatePage/TitleForm';
 import { useTheme } from '../context/ThemeContext';
@@ -78,10 +77,9 @@ const CreatePage = () => {
       )}
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header onMenuClick={() => setSidebarOpen(true)} />
+        {/* <Header onMenuClick={() => setSidebarOpen(true)} /> */}
         <main className={`flex-1 overflow-y-auto p-4 sm:p-6 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
           <div className="max-w-7xl mx-auto">
-            <Stats />
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               <ProjectCard
                 type="new"

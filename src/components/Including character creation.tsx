@@ -5,7 +5,7 @@ import { EditorHeader } from './Editor/EditorHeader';
 import { MessageList } from './Editor/MessageList';
 import { MessageInput } from './Editor/MessageInput';
 import { Sidebar } from './Sidebar';
-import { Mic, Loader2, Clock } from 'lucide-react';
+import { Loader2, Clock } from 'lucide-react';
 
 interface Character {
   name: string;
@@ -147,6 +147,7 @@ function Including_character_creation() {
   };
 
   // Generate character dialogue
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const generateDialogue = (data: NovelData, character: Character, currentSegment: number, totalSegments: number) => {
     const { genre, plotSummary } = data;
     
@@ -324,19 +325,7 @@ function Including_character_creation() {
           />
         </div>
       )}
-
-      {/* Voice creation button */}
-      <div className="absolute bottom-4 right-4">
-        <button
-          onClick={() => handleNavigation("voice")}
-          className={`flex items-center space-x-3 px-4 py-2 rounded-lg ${
-            activeView === "voice" ? "bg-emerald-500 text-white" : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-          }`}
-        >
-          <Mic className="w-5 h-5" />
-          <span>สร้างเสียงตัวละคร</span>
-        </button>
-      </div>
+    
     </div>
   );
 }
